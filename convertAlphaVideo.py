@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/opt/homebrew/bin/python3
 # -*- coding: UTF-8 -*-
 import os
 import subprocess
@@ -8,7 +8,7 @@ import argparse
 import cv2
 import numpy as np
 
-isDebug = False
+isDebug = True
 needZip = False
 outputVideoPath = ""
 imageDir = ""
@@ -34,7 +34,7 @@ def main():
 	needZip = args.zip
 	fps = args.fps
 	bitrate = args.bitrate
-	print "args.zip: ", args.zip
+	# print "args.zip: ", args.zip
 	if not args.file is None:
 		parseVideoFile(args.file)
 	elif not args.dir is None:
@@ -71,7 +71,7 @@ def parseVideoFile(path):
 	parseImageList(imageDir)
 	imagesToVideo(outputPath, oVideoFilePath)
 
-	shutil.rmtree(parentDir + "temp/")
+	# shutil.rmtree(parentDir + "temp/")
 	print(">>>>>> convert alpha video finish, video file path is : %s" % oVideoFilePath)
 
 
@@ -83,7 +83,7 @@ def parseImageDir(path):
 	parseImageList(parentDir)
 	imagesToVideo(outputPath, oVideoFilePath)
 
-	shutil.rmtree(parentDir + "temp/")
+	# shutil.rmtree(parentDir + "temp/")
 	print(">>>>>> convert alpha video finish, video file path is : %s" % oVideoFilePath)
 
 
@@ -126,11 +126,11 @@ def parseImageList(inputPath):
 				zipAlphaChannelPro(tempMaskImageFile, maskImageFile)
 			else:
 				separateAlphaChannel(inputImageFile, maskImageFile)
-			appendImageLand(srcImageFile, maskImageFile, outputImageFile)
+			appendImageLand( maskImageFile, srcImageFile, outputImageFile)
 
-			deleteTempFile(srcImageFile)
-			deleteTempFile(maskImageFile)
-			deleteTempFile(tempMaskImageFile)
+			# deleteTempFile(srcImageFile)
+			# deleteTempFile(maskImageFile)
+			# deleteTempFile(tempMaskImageFile)
 
 			progress += 1
 			updateProgress(progress, totalLength)
